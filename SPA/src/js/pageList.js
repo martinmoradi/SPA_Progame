@@ -1,8 +1,8 @@
 let pageContent = document.querySelector("#pageContent");
 import { header, footer } from "./components";
-import { platformsIcons, formatDate, searchGame } from "./utility";
+import { platformsIcons, formatDate, searchGame, getDate } from "./utility";
 
-const PageList = (argument = "") => {
+const PageList = (argument) => {
   const hideContent = () => {
     const cards = document.querySelectorAll(".game__card");
     cards.forEach((card, index) => {
@@ -24,7 +24,7 @@ const PageList = (argument = "") => {
         }
       });
       if (count >= 2) {
-        showMoreButton.style.display = "none";
+        showMoreButton.classList.add("hidden");
       }
     });
   };
@@ -33,10 +33,12 @@ const PageList = (argument = "") => {
     let cleanedArgument = argument.replace(/\s+/g, "-");
     let games = "";
 
-    const fetchList = (url, argument) => {
+    const fetchList = (url, argument, pageSize) => {
       let finalURL = url;
       if (argument) {
-        finalURL = url + "?search=" + argument;
+        finalURL = url + "?search=" + argument + pageSize;
+      } else {
+        finalURL = url + "?dates=" + getDate() + pageSize;
       }
 
       fetch(`${finalURL}`)
@@ -95,7 +97,7 @@ const PageList = (argument = "") => {
 
     fetchList(
       "https://api.rawg.io/api/games",
-      cleanedArgument + "&page_size=27"
+      cleanedArgument, "&page_size=27"
     );
   };
 

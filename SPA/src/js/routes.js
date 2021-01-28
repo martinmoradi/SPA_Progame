@@ -1,5 +1,5 @@
 const routes = {
-  "": Home,
+  "": PageList,
   pagelist: PageList,
   pagedetail: PageDetail
 };
@@ -7,4 +7,3 @@ const routes = {
 export { routes };
 import { PageList } from "./pageList";
 import { PageDetail } from "./pageDetail";
-import { Home } from "./home"
