@@ -2,16 +2,35 @@ let pageContent = document.querySelector("#pageContent");
 import { header, footer } from "./components";
 import { platformsIcons } from "./utility";
 
-  const contentDisplayer = () => {
+const PageList = (argument = "") => {
+  const hideContent = () => {
     const cards = document.querySelectorAll(".game__card");
     cards.forEach((card, index) => {
       if (index > 8) {
-        card.style.display = "none"
+        card.style.display = "none";
+        card.classList.add("hidden");
       }
-    });  
+    });
   };
 
-const PageList = (argument = "") => {
+  const showContent = () => {
+    let count = 0;
+    const showMoreButton = document.querySelector(".main__showmore--button");
+    showMoreButton.addEventListener("click", function () {
+      const cards = document.querySelectorAll(".game__card.hidden");
+      count ++;
+      cards.forEach((card, index) => {
+        if (index <= 8) {
+          card.style.display = "block";
+          card.classList.remove("hidden");
+        }
+      });
+      if (count >= 2) {
+        showMoreButton.style.display = "none"
+      }
+    });
+  };
+
   const preparePage = () => {
     let cleanedArgument = argument.replace(/\s+/g, "-");
     let games = "";
@@ -39,7 +58,14 @@ const PageList = (argument = "") => {
                     <div class="game__card">
                       <img src="${
                         game.background_image
-                      }" class="game__card--image">
+                      }" class="game__card--image alt="${game.name}">
+                    <div class="game__card--details hidden">
+                      <h3>${game.released}</h3>
+                      <h3>${game.creators}</h3>
+                      <h3>${game.rating}/5 - ${game.reviews_count} votes</h3>
+                      <p>${game.genres}</p>
+                      ${console.log(game.genres)}
+                    </div>
                       <a href ="#pagedetail/${
                         game.id
                       }" class="game__card--title">
@@ -52,9 +78,14 @@ const PageList = (argument = "") => {
                 `;
           });
           document.querySelector(".grid-container").innerHTML = games;
-         contentDisplayer();
+          document.querySelectorAll(".game__card--image").forEach((image) => {
+            image.addEventListener("mouseover", showDetails)
+          })
+          document.querySelectorAll(".game__card--details").forEach((card) => {
+            card.addEventListener("mouseleave", hideDetails)
+          })
+          hideContent();
         });
-
     };
 
     fetchList(
@@ -62,9 +93,20 @@ const PageList = (argument = "") => {
       cleanedArgument + "&page_size=27"
     );
   };
-  
 
+  const showDetails = (e) => {
+    e.target.classList.add("hidden");
+    e.target.style.display = "none"
+    e.target.nextElementSibling.classList.remove("hidden");
+    e.target.nextElementSibling.style.display = "block";
+  };
 
+  const hideDetails = (e) => {
+     e.target.classList.add("hidden");
+     e.target.style.display = "none";
+     e.target.previousElementSibling.classList.remove("hidden");
+     e.target.previousElementSibling.style.display = "block";
+  };
 
   const render = () => {
     pageContent.innerHTML = `    
@@ -92,12 +134,10 @@ const PageList = (argument = "") => {
     `;
 
     preparePage();
-
-
   };
-  
-  render();
 
+  render();
+  showContent()
 };
 
 // searchBar.addEventListener("submit", (e) => {

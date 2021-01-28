@@ -21,6 +21,9 @@ body {
   display: grid;
   grid-template-rows: 1fr auto;
 
+  .hidden {
+    display: none;
+  }
   a {
     color: white;
     text-decoration: none;
@@ -129,6 +132,19 @@ body {
         .platform__icon {
           height: 1.4em;
           margin: 0 10px 0 0;
+        }
+
+        .game__card--details {
+          margin-bottom: 10px;
+          height: 193px;
+        }
+
+        h3 {
+          font-size: 18px;
+        }
+
+        p {
+          font-size: 12px;
         }
       }
     }
