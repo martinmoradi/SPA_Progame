@@ -1,13 +1,12 @@
 let pageContent = document.querySelector("#pageContent");
 import { header, footer } from "./components";
-import { platformsIcons, formatDate } from "./utility";
+import { platformsIcons, formatDate, searchGame } from "./utility";
 
 const PageList = (argument = "") => {
   const hideContent = () => {
     const cards = document.querySelectorAll(".game__card");
     cards.forEach((card, index) => {
       if (index > 8) {
-        card.style.display = "none";
         card.classList.add("hidden");
       }
     });
@@ -18,15 +17,14 @@ const PageList = (argument = "") => {
     const showMoreButton = document.querySelector(".main__showmore--button");
     showMoreButton.addEventListener("click", function () {
       const cards = document.querySelectorAll(".game__card.hidden");
-      count ++;
+      count++;
       cards.forEach((card, index) => {
         if (index <= 8) {
-          card.style.display = "block";
           card.classList.remove("hidden");
         }
       });
       if (count >= 2) {
-        showMoreButton.style.display = "none"
+        showMoreButton.style.display = "none";
       }
     });
   };
@@ -47,17 +45,20 @@ const PageList = (argument = "") => {
           response.results.forEach((game) => {
             const genres = [];
             game.genres.forEach((genre) => {
-               genres.push(genre.slug)
-            })
+              genres.push(genre.slug);
+            });
+
             const platforms = [];
             game.parent_platforms.forEach((parent) =>
               platforms.push(parent.platform.slug)
             );
+
             const disctinctPlatforms = [...new Set(platforms)];
             let icons = [];
             disctinctPlatforms.forEach((ele) =>
               icons.push(platformsIcons(ele))
             );
+
             games += `
                     <div class="game__card">
                       <img src="${
@@ -72,7 +73,7 @@ const PageList = (argument = "") => {
                     </div>
                       <a href ="#pagedetail/${
                         game.id
-                      }" class="game__card--title">
+                      }" class="game__card--title link">
                        ${game.name}
                       </a> 
                       <div class="game__card--icons">
@@ -83,11 +84,11 @@ const PageList = (argument = "") => {
           });
           document.querySelector(".grid-container").innerHTML = games;
           document.querySelectorAll(".game__card--image").forEach((image) => {
-            image.addEventListener("mouseover", showDetails)
-          })
+            image.addEventListener("mouseover", showDetails);
+          });
           document.querySelectorAll(".game__card--details").forEach((card) => {
-            card.addEventListener("mouseleave", hideDetails)
-          })
+            card.addEventListener("mouseleave", hideDetails);
+          });
           hideContent();
         });
     };
@@ -100,16 +101,12 @@ const PageList = (argument = "") => {
 
   const showDetails = (e) => {
     e.target.classList.add("hidden");
-    e.target.style.display = "none"
     e.target.nextElementSibling.classList.remove("hidden");
-    e.target.nextElementSibling.style.display = "block";
   };
 
   const hideDetails = (e) => {
-     e.target.classList.add("hidden");
-     e.target.style.display = "none";
-     e.target.previousElementSibling.classList.remove("hidden");
-     e.target.previousElementSibling.style.display = "block";
+    e.target.classList.add("hidden");
+    e.target.previousElementSibling.classList.remove("hidden");
   };
 
   const render = () => {
@@ -123,6 +120,10 @@ const PageList = (argument = "") => {
         <form class="header--select__wrapper">
           <select id="platforms" name="platformlist" class="header--select__box">
             <option value="any">Platform : Any</option>
+            <option value="pc">Platform : PC</option>
+            <option value="ps">Platform : PlayStation</option>
+            <option value="pc">Platform : Xbox</option>
+            <option value="pc">Platform : Switch</option>
           </select>
         </form>
       </header>
@@ -136,12 +137,11 @@ const PageList = (argument = "") => {
 
        ${footer()}
     `;
-
     preparePage();
   };
 
   render();
-  showContent()
+  showContent();
 };
 
 // searchBar.addEventListener("submit", (e) => {

@@ -24,9 +24,44 @@ body {
   .hidden {
     display: none;
   }
-  a {
+
+  a,
+  a:visited,
+  a:hover,
+  a:active,
+  a:focus {
     color: white;
     text-decoration: none;
+    outline: 0;
+  }
+
+  .link,
+  .link:visited {
+    position: relative;
+
+    &:after {
+      content: "";
+      height: 3px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      background: white;
+      transition: 0.2s;
+    }
+
+    &:hover:after {
+      width: 100%;
+    }
+
+    &.block {
+      display: block;
+      padding: 0.5em;
+
+      &:hover {
+        background: #eee;
+      }
+    }
   }
 
   .wrapper {

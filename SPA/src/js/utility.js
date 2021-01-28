@@ -1,4 +1,6 @@
-const platformsIcons = (platform) => {
+import { PageList } from "./pageList"
+
+ const platformsIcons = (platform) => {
   switch (platform) {
   case "pc":
     return "<img src='/src/images/icons/windows.svg' alt='' class='platform__icon'>"
@@ -79,4 +81,31 @@ const monthFormater = (month) => {
   };
 };
 
-export { platformsIcons, formatDate }
+const getDate = () => {
+        let dateNow = new Date();
+        let month = dateNow.getMonth() + 1;
+        let day = dateNow.getDate();
+        let fullCurrentDate = dateNow.getFullYear() + '-' +
+            (('' + month).length < 2 ? '0' : '') + month + '-' +
+            (('' + day).length < 2 ? '0' : '') + day;
+
+        // get current year+1
+        let fullNextYear = dateNow.getFullYear() + 1 + '-' +
+            (('' + month).length < 2 ? '0' : '') + month + '-' +
+            (('' + day).length < 2 ? '0' : '') + day;
+
+        return `${fullCurrentDate},${fullNextYear}`
+}
+
+const searchGame = () => {
+const searchBar = document.getElementById("searchGame")
+console.log(searchBar)
+  searchBar.addEventListener("submit", (e) => {
+    const request = document.getElementById("searchGame").value;
+    console.log(request);
+    e.preventDefault();
+    PageList(request);
+  });
+};
+
+export { platformsIcons, formatDate, searchGame, getDate }
