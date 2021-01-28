@@ -1,6 +1,6 @@
 let pageContent = document.querySelector("#pageContent");
 import { header, footer } from "./components";
-import { platformsIcons } from "./utility";
+import { platformsIcons, formatDate } from "./utility";
 
 const PageList = (argument = "") => {
   const hideContent = () => {
@@ -45,6 +45,10 @@ const PageList = (argument = "") => {
         .then((response) => response.json())
         .then((response) => {
           response.results.forEach((game) => {
+            const genres = [];
+            game.genres.forEach((genre) => {
+               genres.push(genre.slug)
+            })
             const platforms = [];
             game.parent_platforms.forEach((parent) =>
               platforms.push(parent.platform.slug)
@@ -60,11 +64,11 @@ const PageList = (argument = "") => {
                         game.background_image
                       }" class="game__card--image alt="${game.name}">
                     <div class="game__card--details hidden">
-                      <h3>${game.released}</h3>
-                      <h3>${game.creators}</h3>
+                      <h3>${formatDate(game.released)}</h3>
+                      <h3>developers lul</h3>
                       <h3>${game.rating}/5 - ${game.reviews_count} votes</h3>
-                      <p>${game.genres}</p>
-                      ${console.log(game.genres)}
+                      <p>${genres.join(" ")}</p>
+                     
                     </div>
                       <a href ="#pagedetail/${
                         game.id
