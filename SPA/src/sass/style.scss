@@ -1,14 +1,25 @@
 // SASS VARIABLES
 @import "reset.css";
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;400;700&display=swap");
 
 $color-red: #d20a32;
 $color-dark_grey: #191919;
 
+html {
+  height: 100%;
+}
+
 body {
-  // background-color: $color-dark_grey;
+  background-color: $color-dark_grey;
   color: white;
   font-family: "Lato", sans-serif;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
 
   a {
     color: white;
@@ -33,38 +44,49 @@ body {
         }
 
         .header--searchbar {
-          align-self: flex-start;
+          align-self: center;
           display: flex;
           border: 1px solid #d8d8d8;
-          border-radius: 20px;
+          border-radius: 50px;
+          padding: 0 65px;
           align-self: center;
           margin-top: 10px;
+          cursor: pointer;
 
           .searchIcon {
             padding: 0.5rem;
+            color: #d8d8d8;
+            margin: 2px 0 0 -60px;
           }
 
           input {
             background-color: transparent;
+            padding: 0 50px 0 0;
             outline: none;
+            min-width: 100%;
             border: 0;
-            padding: 5px 65px;
+            font-size: 16px;
             box-shadow: none;
-            flex: 1 1 auto;
             color: white;
-            margin-right: 20px;
           }
 
-          .header--searchbar {
-            content: "";
-            position: absolute;
-            right: 10px;
-            top: 0;
-            bottom: 0;
-            width: 20px;
-            background: url(../images/search.svg) no-repeat right center;
+          input::placeholder {
+            margin-left: -30px;
           }
         }
+      }
+      .header--select__wrapper {
+        max-width: 260px;
+        margin-bottom: 1.5rem;
+      }
+      .header--select__box {
+        background-color: $color-red;
+        width: 100%;
+        color: white;
+        padding: 10px 20px;
+        font-size: 24px;
+        font-weight: thin;
+        line-height: 1.75;
       }
 
       h1 {
@@ -97,8 +119,48 @@ body {
           max-width: 100%;
           height: 193px;
           object-fit: fill;
+          cursor: pointer;
+        }
+
+        .game__card--icons {
+          margin-top: 0.7rem;
+        }
+
+        .platform__icon {
+          height: 1.4em;
+          margin: 0 10px 0 0;
         }
       }
+    }
+  }
+
+  .main__showmore {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .main__showmore--button {
+    background-color: $color-red;
+    height: 51px;
+    width: 223px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  .footer__main {
+    height: 50px;
+    margin: 3rem 0 2rem 0;
+    font-weight: bold;
+    grid-row-start: 2;
+    grid-row-end: 3;
+
+    .footer__redbar {
+      width: 139px;
+      height: 10px;
+      background-color: $color-red;
+      margin-bottom: 1.5rem;
     }
   }
 }
