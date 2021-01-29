@@ -8,6 +8,11 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 $color-red: #d20a32;
 $color-dark_grey: #191919;
+$text-m: 16px;
+$text-sm: 12px;
+$text-l: 18px;
+$text-xl: 24px;
+$text-xxl: 48px;
 
 html {
   height: 100%;
@@ -46,7 +51,7 @@ body {
       bottom: 0;
       left: 0;
       width: 0%;
-      background: white;
+      background: $color-red;
       transition: 0.2s;
     }
 
@@ -69,13 +74,15 @@ body {
     margin: 0 auto;
 
     header {
+      margin-top: 2rem;
+
       .header--navigation {
         display: flex;
         margin-bottom: 2rem;
         justify-content: space-between;
 
         .header--title {
-          font-size: 48px;
+          font-size: $text-xxl;
           font-weight: bold;
           color: $color-red;
           letter-spacing: 1px;
@@ -103,7 +110,7 @@ body {
             outline: none;
             min-width: 100%;
             border: 0;
-            font-size: 16px;
+            font-size: $text-m;
             box-shadow: none;
             color: white;
           }
@@ -113,22 +120,25 @@ body {
           }
         }
       }
+
       .header--select__wrapper {
         max-width: 260px;
         margin-bottom: 1.5rem;
       }
+
       .header--select__box {
         background-color: $color-red;
         width: 100%;
         color: white;
+        letter-spacing: 1.2px;
         padding: 10px 20px;
-        font-size: 24px;
+        font-size: $text-xl;
         font-weight: thin;
         line-height: 1.75;
       }
 
       h1 {
-        font-size: 48px;
+        font-size: $text-xxl;
         font-weight: bold;
         letter-spacing: 1px;
         margin-bottom: 1.5rem;
@@ -154,9 +164,10 @@ body {
 
         .game__card--image {
           margin-bottom: 10px;
+          min-width: 100%;
           max-width: 100%;
           height: 193px;
-          object-fit: fill;
+          object-fit: cover;
           cursor: pointer;
         }
 
@@ -172,15 +183,16 @@ body {
         .game__card--details {
           margin-bottom: 10px;
           height: 193px;
+          overflow: hidden;
         }
 
         h3 {
-          font-size: 18px;
+          font-size: $text-l;
           margin-bottom: 1.2rem;
         }
 
         p {
-          font-size: 12px;
+          font-size: $text-sm;
         }
       }
     }
@@ -198,7 +210,7 @@ body {
     width: 223px;
     color: white;
     font-weight: bold;
-    font-size: 24px;
+    font-size: $text-xl;
   }
 
   .footer__main {
@@ -215,4 +227,26 @@ body {
       margin-bottom: 1.5rem;
     }
   }
+
+  .hero--banner__image {
+    min-width: 100%;
+    height: 419px;
+    position: relative;
+    margin-top: 2rem;
+  }
+
+  .hero--banner__button {
+    background-color: $color-red;
+    width: 228px;
+    height: 50px;
+    color: white;
+    letter-spacing: 1.2px;
+    font-size: $text-m;
+    font-weight: bold;
+    position: absolute;
+    right: 5%;
+    bottom: 10%;
+  }
+
+
 }

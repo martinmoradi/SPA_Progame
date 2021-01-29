@@ -1,8 +1,9 @@
 let pageContent = document.querySelector("#pageContent");
 import { header, footer } from "./components";
-import { platformsIcons, formatDate, searchGame, getDate } from "./utility";
+import { platformsIcons, formatDate, fetchDevelopers, getDate, fetchPlatforms } from "./utility";
 
 const PageList = (argument) => {
+
   const hideContent = () => {
     const cards = document.querySelectorAll(".game__card");
     cards.forEach((card, index) => {
@@ -45,9 +46,11 @@ const PageList = (argument) => {
         .then((response) => response.json())
         .then((response) => {
           response.results.forEach((game) => {
-            const genres = [];
-            game.genres.forEach((genre) => {
-              genres.push(genre.slug);
+            const tags = [];
+            game.tags.forEach((tag) => {
+             if (tag.language === "eng") {
+               tags.push(tag.name);
+             }
             });
 
             const platforms = [];
@@ -60,19 +63,18 @@ const PageList = (argument) => {
             disctinctPlatforms.forEach((ele) =>
               icons.push(platformsIcons(ele))
             );
-
+           
             games += `
                     <div class="game__card">
                       <img src="${
                         game.background_image
                       }" class="game__card--image alt="${game.name}">
-                    <div class="game__card--details hidden">
-                      <h3>${formatDate(game.released)}</h3>
-                      <h3>developers lul</h3>
-                      <h3>${game.rating}/5 - ${game.reviews_count} votes</h3>
-                      <p>${genres.join(" ")}</p>
-                     
-                    </div>
+                      <div class="game__card--details hidden">
+                        <h3>${formatDate(game.released)}</h3>
+                        <h3 class="game__card--developers">${game.slug}</h3>
+                        <h3>${game.rating}/5 - ${game.reviews_count} votes</h3>
+                        <p>${tags.join(" ")}</p>
+                      </div>
                       <a href ="#pagedetail/${
                         game.id
                       }" class="game__card--title link">
@@ -84,7 +86,9 @@ const PageList = (argument) => {
                   </div>     
                 `;
           });
+
           document.querySelector(".grid-container").innerHTML = games;
+          fetchDevelopers()
           document.querySelectorAll(".game__card--image").forEach((image) => {
             image.addEventListener("mouseover", showDetails);
           });
@@ -99,6 +103,7 @@ const PageList = (argument) => {
       "https://api.rawg.io/api/games",
       cleanedArgument, "&page_size=27"
     );
+    fetchPlatforms();
   };
 
   const showDetails = (e) => {
@@ -112,6 +117,7 @@ const PageList = (argument) => {
   };
 
   const render = () => {
+ 
     pageContent.innerHTML = `    
     <header>
     ${header()}
@@ -121,11 +127,7 @@ const PageList = (argument) => {
         </p>
         <form class="header--select__wrapper">
           <select id="platforms" name="platformlist" class="header--select__box">
-            <option value="any">Platform : Any</option>
-            <option value="pc">Platform : PC</option>
-            <option value="ps">Platform : PlayStation</option>
-            <option value="pc">Platform : Xbox</option>
-            <option value="pc">Platform : Switch</option>
+             
           </select>
         </form>
       </header>
@@ -140,17 +142,12 @@ const PageList = (argument) => {
        ${footer()}
     `;
     preparePage();
+
   };
 
   render();
+
   showContent();
 };
 
-// searchBar.addEventListener("submit", (e) => {
-//   const gameSearch = document.getElementById("search").value
-//   e.preventDefault()
-//   PageList(gameSearch)
-// })
-
-// function qui return date today AA-MOIS-JOUR (2021-01-27, 2022-01-27)
 export { PageList };

@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Lato:wght@100;400;700&display=swap);
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0-modified | 20110126
    License: none (public domain)
@@ -6468,17 +6468,64 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  background-color: #191919;
   color: white;
   font-family: "Lato", sans-serif;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
-body a {
+body .hidden {
+  display: none;
+}
+body a,
+body a:visited,
+body a:hover,
+body a:active,
+body a:focus {
   color: white;
   text-decoration: none;
+  outline: 0;
+}
+body .link,
+body .link:visited {
+  position: relative;
+}
+body .link:after,
+body .link:visited:after {
+  content: "";
+  height: 3px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  background: #d20a32;
+  transition: 0.2s;
+}
+body .link:hover:after,
+body .link:visited:hover:after {
+  width: 100%;
+}
+body .link.block,
+body .link:visited.block {
+  display: block;
+  padding: 0.5em;
+}
+body .link.block:hover,
+body .link:visited.block:hover {
+  background: #eee;
 }
 body .wrapper {
   width: 1024px;
   margin: 0 auto;
+}
+body .wrapper header {
+  margin-top: 2rem;
 }
 body .wrapper header .header--navigation {
   display: flex;
@@ -6492,34 +6539,46 @@ body .wrapper header .header--navigation .header--title {
   letter-spacing: 1px;
 }
 body .wrapper header .header--navigation .header--searchbar {
-  align-self: flex-start;
+  align-self: center;
   display: flex;
   border: 1px solid #d8d8d8;
-  border-radius: 20px;
+  border-radius: 50px;
+  padding: 0 80px;
   align-self: center;
   margin-top: 10px;
+  cursor: pointer;
 }
 body .wrapper header .header--navigation .header--searchbar .searchIcon {
   padding: 0.5rem;
+  color: #d8d8d8;
+  margin: 2px 0 0 -60px;
 }
 body .wrapper header .header--navigation .header--searchbar input {
   background-color: transparent;
+  padding: 0 50px 0 0;
   outline: none;
+  min-width: 100%;
   border: 0;
-  padding: 5px 65px;
+  font-size: 16px;
   box-shadow: none;
-  flex: 1 1 auto;
   color: white;
-  margin-right: 20px;
 }
-body .wrapper header .header--navigation .header--searchbar .header--searchbar {
-  content: "";
-  position: absolute;
-  right: 10px;
-  top: 0;
-  bottom: 0;
-  width: 20px;
-  background: url(images/5a8d18be64167db9726fa142bf869edb.svg) no-repeat right center;
+body .wrapper header .header--navigation .header--searchbar input::placeholder {
+  margin-left: -30px;
+}
+body .wrapper header .header--select__wrapper {
+  max-width: 260px;
+  margin-bottom: 1.5rem;
+}
+body .wrapper header .header--select__box {
+  background-color: #d20a32;
+  width: 100%;
+  color: white;
+  letter-spacing: 1.2px;
+  padding: 10px 20px;
+  font-size: 24px;
+  font-weight: thin;
+  line-height: 1.75;
 }
 body .wrapper header h1 {
   font-size: 48px;
@@ -6543,7 +6602,72 @@ body .wrapper .grid-container .game__card .game__card--title {
 }
 body .wrapper .grid-container .game__card .game__card--image {
   margin-bottom: 10px;
+  min-width: 100%;
   max-width: 100%;
   height: 193px;
-  object-fit: fill;
+  object-fit: cover;
+  cursor: pointer;
+}
+body .wrapper .grid-container .game__card .game__card--icons {
+  margin-top: 0.7rem;
+}
+body .wrapper .grid-container .game__card .platform__icon {
+  height: 1.4em;
+  margin: 0 10px 0 0;
+}
+body .wrapper .grid-container .game__card .game__card--details {
+  margin-bottom: 10px;
+  height: 193px;
+  overflow: hidden;
+}
+body .wrapper .grid-container .game__card h3 {
+  font-size: 18px;
+  margin-bottom: 1.2rem;
+}
+body .wrapper .grid-container .game__card p {
+  font-size: 12px;
+}
+body .main__showmore {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+body .main__showmore--button {
+  background-color: #d20a32;
+  height: 51px;
+  width: 223px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+}
+body .footer__main {
+  height: 50px;
+  margin: 3rem 0 2rem 0;
+  font-weight: bold;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+body .footer__main .footer__redbar {
+  width: 139px;
+  height: 10px;
+  background-color: #d20a32;
+  margin-bottom: 1.5rem;
+}
+body .hero--banner__image {
+  min-width: 100%;
+  height: 419px;
+  position: relative;
+  margin-top: 2rem;
+}
+body .hero--banner__button {
+  background-color: #d20a32;
+  width: 228px;
+  height: 50px;
+  color: white;
+  letter-spacing: 1.2px;
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  right: 5%;
+  bottom: 10%;
 }
