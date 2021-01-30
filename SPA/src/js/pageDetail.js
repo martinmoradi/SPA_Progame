@@ -9,8 +9,6 @@ const PageDetail = (argument) => {
       let finalURL = url + argument;
       let fetched = await fetch(`${finalURL}`);
       const response = await fetched.json();
-      console.log(response);
-
       let {
         background_image,
         website,
@@ -26,8 +24,7 @@ const PageDetail = (argument) => {
         tags,
         stores,
         clip,
-        screenshots_count,
-        slug,
+        screenshots_count
       } = response;
 
       if (background_image) {
@@ -109,13 +106,15 @@ const PageDetail = (argument) => {
         });
       }
 
-      if (stores) {
+      if (stores.length > 0) {
         stores.forEach((store) => {
           document.querySelector(".game_stores").innerHTML += `
                 <a href="${store.url}"><span class="link">${
             store.store.name
           }</span> ${storeIcons(store.store.slug)}</a><br>`;
         });
+      } else {
+        document.querySelector(".game_stores").innerHTML += "TBA"
       }
 
       if (clip) {
@@ -129,18 +128,29 @@ const PageDetail = (argument) => {
       if (screenshots_count > 0) {
         fetchScreenshots(finalURL);
       }
+      
+      await fetchYoutube(finalURL)
     };
-    const fetchScreenshots = async (finalURL) => {
+
+    const fetchScreenshots = async (finalURL, name) => {
+      console.log(name)
       let fetched = await fetch(`${finalURL}/screenshots`);
       const response = await fetched.json();
       response.results.forEach((result, index) => {
         if (index < 4) {
           document.querySelector(".game_screenshots--grid").innerHTML += `
-          <img class="game__screenshot" src="${result.image}">
+          <img alt="${name} ${index}" class="game__screenshot" src="${result.image}">
           `;
         }
       });
     };
+
+    const fetchYoutube = async (finalURL) => {
+      let fetched = await fetch(`${finalURL}/youtube`);
+      const response = await fetched.json();
+      console.log(response)
+    }
+
     fetchGame("https://api.rawg.io/api/games/", cleanedArgument);
   };
 
