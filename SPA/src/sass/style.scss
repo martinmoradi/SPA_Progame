@@ -14,20 +14,27 @@ $text-l: 18px;
 $text-xl: 24px;
 $text-xxl: 48px;
 
-html {
-  height: 100%;
+@mixin subtitles {
+  margin: 2rem 0 1.5rem 0;
+  font-size: 36px;
+  color: $color-red;
+  font-weight: bold;
 }
 
 body {
   background-color: $color-dark_grey;
   color: white;
   font-family: "Lato", sans-serif;
-  min-height: 100%;
-  display: grid;
-  grid-template-rows: 1fr auto;
 
   .hidden {
     display: none;
+  }
+
+  .main__details {
+    min-height: calc(100vh - 50px);
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
   }
 
   a,
@@ -72,6 +79,75 @@ body {
   .wrapper {
     width: 1024px;
     margin: 0 auto;
+    min-height: 100vh;
+
+    .game_description {
+      p {
+        margin: 1rem 0 1rem 0;
+      }
+    }
+
+    .game-title__row {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+
+      .game-title {
+        font-size: $text-xxl;
+        font-weight: bold;
+      }
+
+      .game-ratings {
+        font-size: $text-xl;
+        color: $color-red;
+        font-weight: bold;
+        align-self: center;
+      }
+    }
+    .game_description {
+      line-height: 1.2;
+
+      h3 {
+        margin-top: 1rem;
+        font-weight: bold;
+      }
+    }
+
+    .game-details {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 2rem 0px;
+      grid-template-areas:
+        "game_release-date game_developers game_platforms game_publishers"
+        "game_genres game_genres game_tags game_tags";
+      .game_release-date {
+        grid-area: game_release-date;
+      }
+      .game_developers {
+        grid-area: game_developers;
+      }
+      .game_platforms {
+        grid-area: game_platforms;
+      }
+      .game_publishers {
+        grid-area: game_publishers;
+      }
+      .game_genres {
+        grid-area: game_genres;
+      }
+      .game_tags {
+        grid-area: game_tags;
+      }
+
+      h3 {
+        font-weight: bold;
+        margin-bottom: -0.5rem;
+      }
+    }
 
     header {
       margin-top: 2rem;
@@ -217,8 +293,7 @@ body {
     height: 50px;
     margin: 3rem 0 2rem 0;
     font-weight: bold;
-    grid-row-start: 2;
-    grid-row-end: 3;
+    padding-bottom: 20px;
 
     .footer__redbar {
       width: 139px;
@@ -233,6 +308,7 @@ body {
     height: 419px;
     position: relative;
     margin-top: 2rem;
+    background-position: center;
   }
 
   .hero--banner__button {
@@ -248,5 +324,31 @@ body {
     bottom: 10%;
   }
 
+  .game_stores {
+    a {
+      margin-bottom: 50px;
+      .store__icon {
+        height: 1.4em;
+        margin-left: 0.5em;
+      }
+    }
+  }
 
+  .game__details--subtitles {
+    @include subtitles();
+  }
+
+  .game_screenshots--grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    gap: 20px 20px;
+    
+      .game__screenshot {
+        height: 248px;
+        width: calc(1024px / 2 - 10px);
+        object-fit: fill;
+      }
+  }
 }
